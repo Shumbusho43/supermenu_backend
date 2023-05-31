@@ -1,4 +1,4 @@
-const Resto = require('./resto.model');
+const {Resto} = require('./resto.model');
 const {
     validate
 } = require('./resto.model');
@@ -20,6 +20,7 @@ module.exports.register = async (req, res) => {
         const result = await resto.save();
         return res.status(201).send(result);
     } catch (ex) {
+
         res.status(400).send(ex.message);
     }
 }

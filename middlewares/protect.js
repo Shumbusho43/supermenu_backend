@@ -1,6 +1,6 @@
 //protect middleware
 const jwt = require("jsonwebtoken");
-const User = require("../user/user.models");
+const {User} = require("../user/user.models");
 exports.protect = async (req, res, next) => {
     try {
         //get token from header

@@ -25,4 +25,4 @@ function validateRestaurant(restaurant) {
 module.exports.validate = validateRestaurant;
 const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
-module.exports = Restaurant;
+module.exports.Resto = Restaurant;

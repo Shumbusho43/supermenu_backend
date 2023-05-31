@@ -2,9 +2,8 @@ const {
   User,
   userValidationSchema
 } = require('./user.models'); // Assuming your User model is defined in a separate file
-const bcrypt = require('bcryptjs');
-
-async function signupController(req, res) {
+const jwt =require("jsonwebtoken")
+exports.signupController = async (req, res) => {
   try {
     // Validate request body against the Joi schema
     const {
@@ -33,23 +32,27 @@ async function signupController(req, res) {
       });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
     const newUser = new User({
       fullName,
       phoneNumber,
       email,
-      password: hashedPassword
+      password
     });
 
     // Save the user to the database
     await newUser.save();
+    // Create a new object without the password field
+    const newUserWithoutPassword = {
+      fullName: newUser.fullName,
+      phoneNumber: newUser.phoneNumber,
+      email: newUser.email
+    };
 
     return res.status(201).json({
       message: 'Signup successful',
-      data: newUser
+      data: newUserWithoutPassword
     });
   } catch (error) {
     console.error('Signup error:', error);
@@ -59,9 +62,7 @@ async function signupController(req, res) {
   }
 }
 
-module.exports = signupController;
-
-async function loginController(req, res) {
+exports.loginController = async (req, res) => {
   try {
     const {
       email,
@@ -71,7 +72,7 @@ async function loginController(req, res) {
     // Find the user by email
     const user = await User.findOne({
       email
-    });
+    })
     if (!user) {
       return res.status(401).json({
         error: 'Invalid credentials'
@@ -79,7 +80,7 @@ async function loginController(req, res) {
     }
 
     // Compare the password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = user.comparePassword(password);
     if (!isPasswordValid) {
       return res.status(401).json({
         error: 'Invalid credentials'
@@ -93,7 +94,6 @@ async function loginController(req, res) {
     });
     return res.status(200).json({
       message: 'Login successful',
-      data: user,
       token
     });
   } catch (error) {
@@ -115,4 +115,3 @@ const generateToken = (user) => {
     expiresIn: '30d'
   });
 }
-module.exports = loginController;

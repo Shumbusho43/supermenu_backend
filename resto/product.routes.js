@@ -9,3 +9,4 @@ const {
 const router = express.Router();
 router.route('/')
     .post(protect, role('admin'), registerProduct)
+module.exports.product=router
