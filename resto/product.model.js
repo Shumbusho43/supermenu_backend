@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  restaurant: {
+  restaurantId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Restaurant',
     required: true,
@@ -64,7 +64,7 @@ function validateProduct(product) {
 
   const schema = Joi.object({
     generalName: Joi.string().required(),
-    restaurant: Joi.string().required(),
+    restaurantId: Joi.string().required(),
     options: Joi.array().items(optionSchema).min(1).required(),
   });
 

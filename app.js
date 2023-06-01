@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const swaggerUi = require("swagger-ui-express");
 require('dotenv').config();
 const cors = require('cors');
 const connectToMongoDB = require('./db'); // Assuming you have a separate file for connecting to MongoDB
@@ -27,6 +28,12 @@ app.get('/', (req, res) => {
 app.use('/user', userRoutes);
 app.use("/resto", restaurantRouter);
 app.use('/product', product)
+
+//documentation
+const swaggerDocs = require('./swagger.json');
+app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs, false, {
+  docExpansion: "none"
+}))
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

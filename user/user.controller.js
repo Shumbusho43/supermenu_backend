@@ -2,7 +2,7 @@ const {
   User,
   userValidationSchema
 } = require('./user.models'); // Assuming your User model is defined in a separate file
-const jwt =require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 exports.signupController = async (req, res) => {
   try {
     // Validate request body against the Joi schema
@@ -89,7 +89,7 @@ exports.loginController = async (req, res) => {
 
     // Password is valid, authentication successful
     const token = generateToken(user);
-    res.cookie('token', token, {
+    res.cookie('token', "Bearer " + token, {
       httpOnly: true
     });
     return res.status(200).json({

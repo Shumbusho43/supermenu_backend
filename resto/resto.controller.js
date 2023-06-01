@@ -36,7 +36,7 @@ module.exports.getAll = async (req, res) => {
 //get restaurant by id
 module.exports.getById = async (req, res) => {
     try {
-        const result = await Resto.findById(req.params.id).polulate('products');
+        const result = await Resto.findById(req.params.id).populate('products');
         if (!result) return res.status(404).send('The restaurant with the given ID was not found.');
         return res.status(200).send(result);
     } catch (ex) {

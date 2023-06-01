@@ -1,0 +1,338 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Domentation of supermenu API",
+        "version": "1.0.0",
+        "title": "supermenu APIs",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "davidshumbusho10@gmail.com",
+            "name": "David Shumbusho"
+        },
+        "licence": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "tags": [
+        {
+            "name": "User",
+            "description": "user operations"
+        },
+        {
+            "name": "Resto",
+            "description": "restaurant operations"
+        },
+        {
+            "name": "Product",
+            "description": "product operations"
+        }
+    ],
+    "paths": {
+        "/user/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Register user",
+                "description": "Register user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User object",
+                        "required": true,
+                        "properties": {
+                            "fullName": {
+                                "type": "string",
+                                "example": "Shumbusho David"
+                            },
+                            "phoneNumber": {
+                                "type": "string",
+                                "example": "0788781096"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "davidshumbusho10@gmail.com"
+                            },
+                            "password": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Login user",
+                "description": "Login user",
+                "operationId": "loginUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User object",
+                        "required": true,
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "example": "davidshumbusho10@gmail.com"
+                            },
+                            "password": {
+                                "type": "string",
+                                "example": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/resto": {
+            "post": {
+                "tags": [
+                    "Resto"
+                ],
+                "summary": "Register restaurant",
+                "description": "Register restaurant",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Resto object",
+                        "required": true,
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "Byose's restaurant"
+                            },
+                            "coverImage": {
+                                "type": "string",
+                                "example": "image.jpg"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Resto"
+                ],
+                "summary": "Get all restaurant",
+                "description": "Get all restaurant",
+                "operationId": "Get all restaurant",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/resto/{id}": {
+            "get": {
+              "tags": [
+                "Resto"
+              ],
+              "summary": "Get restaurant by ID",
+              "description": "Get restaurant details by ID",
+              "operationId": "getRestaurantById",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "id",
+                  "description": "ID of the restaurant",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful operation",
+                  "content": {
+                    "application/json": {}
+                  }
+                },
+                "400": {
+                  "description": "Invalid input"
+                }
+              }
+            }
+        },          
+        "/resto/search/{name}": {
+            "get":{
+            "tags": [
+                "Resto"
+            ],
+            "summary": "search restaurant by name",
+            "description": "search restaurant by name",
+            "operationId": "search restaurant by name",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "name",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "successful operation"
+                },
+                "400": {
+                    "description": "Invalid input"
+                }
+            }
+        }
+        },
+        "/product": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Register resto product",
+                "description": "Register resto product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Product object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "generalName": {
+                                    "type": "string",
+                                    "example": "Drinks"
+                                },
+                                "restaurantId": {
+                                    "type": "string",
+                                    "example": "647736be9536c5b26b957e0c"
+                                },
+                                "options": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Water"
+                                            },
+                                            "price": {
+                                                "type": "number",
+                                                "example": 1000
+                                            },
+                                            "ingredient": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "example": "Nile"
+                                                }
+                                            },
+                                            "quantity": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "optionCoverImage": {
+                                                "type": "string",
+                                                "example": "image.jpg"
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ]
+}

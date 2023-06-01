@@ -11,6 +11,12 @@ const restaurantSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    products: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
+        },
+      ],
 }, {
     timestamps: true
 }); //timestamps: true will automatically add createdAt and updatedAt fields

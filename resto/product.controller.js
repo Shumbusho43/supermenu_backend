@@ -1,20 +1,41 @@
-const { Product, validateProduct } = require('./product.model');
+const {
+  Product,
+  validateProduct
+} = require('./product.model');
+const {
+  Resto
+} = require('./resto.model');
 
 // Create a new product
 exports.registerProduct = async (req, res) => {
   try {
     // Validate the request body
-    const { error } = validateProduct(req.body);
+    const {
+      error
+    } = validateProduct(req.body);
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
-
+    //check if restaurant exists
+    const resto = await Resto.findById(req.body.restaurantId);
+    if (!resto) return res.status(404).json({
+      message: "Restaurant not found"
+    })
     // Create a new product
     const product = new Product(req.body);
 
     // Save the product to the database
     await product.save();
-
+    //update restaurant product array
+    await Resto.findByIdAndUpdate({
+      _id: req.body.restaurantId
+    }, {
+      $push: {
+        products: product._id
+      }
+    }, {
+      new: true
+    })
     // Return the created product
     res.status(201).send(product);
   } catch (error) {
