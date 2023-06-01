@@ -11,6 +11,9 @@ const {
 const {
   product
 } = require('./resto/product.routes');
+const {
+  orderRouter
+} = require('./order/order.routes');
 // Create Express app
 const app = express();
 
@@ -28,7 +31,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRoutes);
 app.use("/resto", restaurantRouter);
 app.use('/product', product)
-
+app.use('/order', orderRouter)
 //documentation
 const swaggerDocs = require('./swagger.json');
 app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs, false, {

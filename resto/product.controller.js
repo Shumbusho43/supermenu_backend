@@ -21,24 +21,42 @@ exports.registerProduct = async (req, res) => {
     if (!resto) return res.status(404).json({
       message: "Restaurant not found"
     })
-    // Create a new product
-    const product = new Product(req.body);
-
-    // Save the product to the database
-    await product.save();
-    //update restaurant product array
-    await Resto.findByIdAndUpdate({
-      _id: req.body.restaurantId
-    }, {
-      $push: {
-        products: product._id
-      }
-    }, {
-      new: true
+    //checking if generalName exists
+    const generalNameExist = await Product.findOne({
+      generalName: req.body.generalName
     })
-    // Return the created product
-    res.status(201).send(product);
+    if (!generalNameExist) {
+      // Create a new product
+      const product = new Product(req.body);
+      await product.save();
+      //update restaurant product array
+      await Resto.findByIdAndUpdate({
+        _id: req.body.restaurantId
+      }, {
+        $push: {
+          products: product._id
+        }
+      }, {
+        new: true
+      })
+      // Return the created product
+      res.status(201).send(product);
+    } else {
+      //push only options to the existing product options array
+      await Product.findOneAndUpdate({
+        generalName: req.body.generalName
+      }, {
+        $push: {
+          options: req.body.options
+        }
+      }, {
+        new: true
+      })
+      // Return the created product
+      res.status(201).send(generalNameExist);
+    }
   } catch (error) {
+    console.log(error);
     res.status(500).send(error.message);
   }
 };

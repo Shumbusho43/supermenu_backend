@@ -184,67 +184,67 @@
         },
         "/resto/{id}": {
             "get": {
-              "tags": [
-                "Resto"
-              ],
-              "summary": "Get restaurant by ID",
-              "description": "Get restaurant details by ID",
-              "operationId": "getRestaurantById",
-              "parameters": [
-                {
-                  "in": "path",
-                  "name": "id",
-                  "description": "ID of the restaurant",
-                  "required": true,
-                  "schema": {
-                    "type": "string"
-                  }
+                "tags": [
+                    "Resto"
+                ],
+                "summary": "Get restaurant by ID",
+                "description": "Get restaurant details by ID",
+                "operationId": "getRestaurantById",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of the restaurant",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
                 }
-              ],
-              "responses": {
-                "200": {
-                  "description": "Successful operation",
-                  "content": {
-                    "application/json": {}
-                  }
-                },
-                "400": {
-                  "description": "Invalid input"
-                }
-              }
             }
-        },          
+        },
         "/resto/search/{name}": {
-            "get":{
-            "tags": [
-                "Resto"
-            ],
-            "summary": "search restaurant by name",
-            "description": "search restaurant by name",
-            "operationId": "search restaurant by name",
-            "consumes": [
-                "application/json"
-            ],
-            "produces": [
-                "application/json"
-            ],
-            "parameters": [
-                {
-                    "in": "path",
-                    "name": "name",
-                    "required": true,
-                    "type": "string"
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "successful operation"
-                },
-                "400": {
-                    "description": "Invalid input"
+            "get": {
+                "tags": [
+                    "Resto"
+                ],
+                "summary": "search restaurant by name",
+                "description": "search restaurant by name",
+                "operationId": "search restaurant by name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
                 }
             }
-        }
         },
         "/product": {
             "post": {
@@ -307,7 +307,66 @@
                                         }
                                     }
                                 }
-                                
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/order": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Create order",
+                "description": "Create order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Order object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "productId": {
+                                    "type": "string",
+                                    "example": "6478f676f76f2ceb3c4923dd"
+                                },
+                                "restaurantId": {
+                                    "type": "string",
+                                    "example": "6477af89f46aee9ecd149d2f"
+                                },
+                                "options": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Amata"
+                                            },
+                                            "quantity": {
+                                                "type": "integer",
+                                                "example": 5
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
