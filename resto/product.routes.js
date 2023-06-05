@@ -1,6 +1,7 @@
 const express = require('express');
 const {
-    registerProduct
+    registerProduct,
+    getProductById
 } = require('./product.controller');
 const {
     protect,
@@ -9,4 +10,6 @@ const {
 const router = express.Router();
 router.route('/')
     .post(protect, role('admin'), registerProduct)
-module.exports.product=router
+router.route('/:id')
+    .get(protect, getProductById)
+module.exports.product = router
