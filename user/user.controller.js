@@ -74,7 +74,7 @@ exports.loginController = async (req, res) => {
       email
     })
     if (!user) {
-      return res.status(401).json({
+      return res.status(400).json({
         error: 'Invalid credentials'
       });
     }
@@ -82,7 +82,7 @@ exports.loginController = async (req, res) => {
     // Compare the password
     const isPasswordValid = user.comparePassword(password);
     if (!isPasswordValid) {
-      return res.status(401).json({
+      return res.status(400).json({
         error: 'Invalid credentials'
       });
     }
