@@ -52,7 +52,11 @@ module.exports.search = async (req, res) => {
                 $options: 'i'
             }
         }).populate('products');
-        if (!result) return res.status(404).send('The restaurant with the given name was not found.');
+        //if no restaurant found with the given name return all restaurants
+        if (result.length == 0) {
+            const result = await Resto.find().populate('products');
+            return res.status(200).send(result);
+        }
         return res.status(200).send(result);
     } catch (ex) {
         res.status(400).send(ex.message);
